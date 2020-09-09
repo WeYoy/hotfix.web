@@ -8,7 +8,7 @@ import edit from '../img/edit.svg';
 import './place.css';
 
 
-const Basket = ({ match: { params: { areaId, itemId }}, foodAreas, order }) => {
+const Basket = ({ match: { params: { areaId, itemId }}, foodAreas, order, history }) => {
   const [ faster, setFaster ] = useState(true);
   const [ time, setTime ] = useState('');
   const [ selfService, setSelfService ] = useState(false);
@@ -33,6 +33,14 @@ const Basket = ({ match: { params: { areaId, itemId }}, foodAreas, order }) => {
 
     return [ accounting.formatNumber(result, 0, ' '), products ];
   }, [ order, item ]);
+
+
+  const onConfirmOrder = () => {
+    console.log('qwe')
+    if(products.length == 0) return;
+
+    history.push(`/order/${area.id}/${item.id}`)
+  }
 
   return (
     <div className="Place">
@@ -147,7 +155,7 @@ const Basket = ({ match: { params: { areaId, itemId }}, foodAreas, order }) => {
         </div>
       </div>
       <footer className="Place__footer">
-        <Link to={`/order/${area.id}/${item.id}`} className="Place__order">
+        <Link onClick={onConfirmOrder} to='#' className="Place__order" >
           Оплатить {price}
         </Link>
       </footer>
