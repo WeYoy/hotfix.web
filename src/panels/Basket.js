@@ -11,7 +11,7 @@ import './place.css';
 
 const Basket = ({ match: { params: { areaId, itemId }}, foodAreas, order, history, location: { state: locationState }}) => {
   const [ faster, setFaster ] = useState(getByPath(locationState, 'basket.faster', true));
-  const [ time, setTime ] = useState(getByPath(locationState, 'basket.time', true));
+  const [ time, setTime ] = useState(getByPath(locationState, 'basket.time', ''));
   const [ selfService, setSelfService ] = useState(getByPath(locationState, 'basket.selfService', false));
   const area = foodAreas.filter(area => area.id === areaId)[0];
   const item = area.items.filter(item => item.id === itemId)[0];
@@ -38,6 +38,17 @@ const Basket = ({ match: { params: { areaId, itemId }}, foodAreas, order, histor
 
   const onConfirmOrder = () => {
     if(products.length === 0) return;
+
+    if(faster === false){
+      const regex =  /^(1[0|1|2]|[1-9]):[0-5][0-9]$/;
+      const match = regex.exec(time);
+
+      if (!match) {
+        setFaster(false);
+        setTime('');
+        return '';
+      }
+    }
 
     history.push(`/order/${area.id}/${item.id}`)
   }
