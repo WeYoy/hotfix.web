@@ -3,15 +3,16 @@ import { withRouter, Link } from 'react-router-dom';
 import accounting from 'accounting';
 
 import Checkbox from './Checkbox';
+import getByPath  from "../utils/get-by-path";
 
 import edit from '../img/edit.svg';
 import './place.css';
 
 
-const Basket = ({ match: { params: { areaId, itemId }}, foodAreas, order, history }) => {
-  const [ faster, setFaster ] = useState(true);
-  const [ time, setTime ] = useState('');
-  const [ selfService, setSelfService ] = useState(false);
+const Basket = ({ match: { params: { areaId, itemId }}, foodAreas, order, history, location: { state: basket } }) => {
+  const [ faster, setFaster ] = useState(getByPath(basket, 'faster', true));
+  const [ time, setTime ] = useState(getByPath(basket, 'time', true));
+  const [ selfService, setSelfService ] = useState(getByPath(basket, 'selfService', false));
   const area = foodAreas.filter(area => area.id === areaId)[0];
   const item = area.items.filter(item => item.id === itemId)[0];
 
@@ -105,7 +106,7 @@ const Basket = ({ match: { params: { areaId, itemId }}, foodAreas, order, histor
         </ul>
         <Link
           className="Place__change-product"
-          to={`/place/${areaId}/${itemId}`}
+          to={{pathname: `/place/${areaId}/${itemId}`, state: { basket: {faster, time, selfService} }}}
         >
           Изменить
         </Link>

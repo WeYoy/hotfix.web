@@ -7,7 +7,7 @@ import edit from '../img/edit.svg';
 import './place.css';
 
 
-const Place = ({ item, order, onIncrementPosition, onDecrementPosition, area }) => {
+const Place = ({ item, order, onIncrementPosition, onDecrementPosition, area, location: { state: { basket }}}) => {
   const price = useMemo(() => {
     const foodIds = new Set((item.foods || []).map(item => item.id));
 
@@ -101,7 +101,7 @@ const Place = ({ item, order, onIncrementPosition, onDecrementPosition, area }) 
         )))}
       </ul>
       <footer className="Place__footer">
-        <Link to={`/basket/${area.id}/${item.id}`} className="Place__order">
+        <Link to={{ pathname: `/basket/${area.id}/${item.id}`, state: basket }} className="Place__order">
           Оформить заказ ({price})
         </Link>
       </footer>
@@ -113,6 +113,7 @@ Place.defaultProps = {
   item: {},
   onIncrementPosition: () => {},
   onDecrementPosition: () => {},
+  location: {},
 };
 
 export default Place;
