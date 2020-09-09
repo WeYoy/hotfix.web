@@ -36,8 +36,7 @@ const Basket = ({ match: { params: { areaId, itemId }}, foodAreas, order, histor
 
 
   const onConfirmOrder = () => {
-    console.log('qwe')
-    if(products.length == 0) return;
+    if(products.length === 0) return;
 
     history.push(`/order/${area.id}/${item.id}`)
   }
