@@ -1,17 +1,16 @@
 
 export default function(obj, path, def) {
-    path = path
+    if(obj === undefined) return def;
+
+    var fullPath = path
         .replace(/\[/g, '.')
         .replace(/]/g, '')
-        .split('.');
+        .split('.')
+        .filter(Boolean);
 
-    path.forEach(function (level) {
-        obj = obj[level];
-    });
+    return fullPath.every(everyFunc) ? obj : def;
 
-    if (obj === undefined) {
-        return def;
+    function everyFunc(step) {
+        return !(step && (obj = obj[step]) === undefined);
     }
-
-    return obj;
 };

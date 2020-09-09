@@ -1,13 +1,14 @@
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import accounting from 'accounting';
-// import PropTypes from 'prop-types';
+
+import getByPath  from "../utils/get-by-path";
 
 import edit from '../img/edit.svg';
 import './place.css';
 
 
-const Place = ({ item, order, onIncrementPosition, onDecrementPosition, area, location: { state: { basket }}}) => {
+const Place = ({ item, order, onIncrementPosition, onDecrementPosition, area, location: { state: locationState }}) => {
   const price = useMemo(() => {
     const foodIds = new Set((item.foods || []).map(item => item.id));
 
@@ -101,7 +102,7 @@ const Place = ({ item, order, onIncrementPosition, onDecrementPosition, area, lo
         )))}
       </ul>
       <footer className="Place__footer">
-        <Link to={{ pathname: `/basket/${area.id}/${item.id}`, state: basket }} className="Place__order">
+        <Link to={{ pathname: `/basket/${area.id}/${item.id}`, state: { basket: getByPath(locationState, 'basket') }}} className="Place__order">
           Оформить заказ ({price})
         </Link>
       </footer>

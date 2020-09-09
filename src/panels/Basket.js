@@ -9,10 +9,10 @@ import edit from '../img/edit.svg';
 import './place.css';
 
 
-const Basket = ({ match: { params: { areaId, itemId }}, foodAreas, order, history, location: { state: basket } }) => {
-  const [ faster, setFaster ] = useState(getByPath(basket, 'faster', true));
-  const [ time, setTime ] = useState(getByPath(basket, 'time', true));
-  const [ selfService, setSelfService ] = useState(getByPath(basket, 'selfService', false));
+const Basket = ({ match: { params: { areaId, itemId }}, foodAreas, order, history, location: { state: locationState }}) => {
+  const [ faster, setFaster ] = useState(getByPath(locationState, 'basket.faster', true));
+  const [ time, setTime ] = useState(getByPath(locationState, 'basket.time', true));
+  const [ selfService, setSelfService ] = useState(getByPath(locationState, 'basket.selfService', false));
   const area = foodAreas.filter(area => area.id === areaId)[0];
   const item = area.items.filter(item => item.id === itemId)[0];
 
