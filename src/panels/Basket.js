@@ -44,7 +44,6 @@ const Basket = ({ match: { params: { areaId, itemId }}, foodAreas, order, histor
       const match = regex.exec(time);
 
       if (!match) {
-        setFaster(false);
         setTime('');
         return '';
       }
