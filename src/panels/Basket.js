@@ -40,7 +40,7 @@ const Basket = ({ match: { params: { areaId, itemId }}, foodAreas, order, histor
     if(products.length === 0) return;
 
     if(faster === false){
-      const regex =  /^(1[0|1|2]|[1-9]):[0-5][0-9]$/;
+      const regex = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/;
       const match = regex.exec(time);
 
       if (!match) {
